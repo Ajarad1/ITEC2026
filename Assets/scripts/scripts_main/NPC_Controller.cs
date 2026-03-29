@@ -47,6 +47,10 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public bool itemPremiumDeblocat = false; 
     public bool folosesteItemPremium = false;
 
+    [Header("UI Tooltip")]
+    public GameObject tooltipPanel; // Trage aici obiectul Tooltip_Detalii
+    public TextMeshProUGUI textInfo; // Trage aici obiectul Text_Info
+
     void Start()
     {
         banca = FindFirstObjectByType<HubManager>();
@@ -124,12 +128,15 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (textTrustNecesat != null && banca != null)
         {
-            textTrustNecesat.text = "Necesită: " + incredereNecesara + " Trust";
+            textTrustNecesat.text = "Necesită: " + incredereNecesara + " Încredere";
+            Color maro;
+            ColorUtility.TryParseHtmlString("#331704", out maro); // Maro în hex
 
             if (banca.incredere < incredereNecesara)
                 textTrustNecesat.color = Color.red; 
             else
-                textTrustNecesat.color = Color.green; 
+                textTrustNecesat.color = maro; 
+                
         }
     }
 
@@ -241,11 +248,39 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             
             if(meniuProductie != null) meniuProductie.SetActive(false); // Ascundem meniul
 
-            Debug.Log("✨ " + numeNPC + " folosește acum itemul PREMIUM! Va produce " + baniPremium + "$, dar pierzi " + pierdereIncredere + " Trust!");
+            Debug.Log("✨ " + numeNPC + " folosește acum itemul PREMIUM! Va produce " + baniPremium + "$, dar pierzi " + pierdereIncredere + " Încredere!");
         }
         else
         {
             Debug.Log("Nu poți echipa! Itemul nu este craftat încă!");
         }
+    }
+
+    // --- FUNCȚII PENTRU HOVER BUTOANE ---
+
+    public void AfiseazaDetaliiCasual()
+    {
+        if (tooltipPanel == null || textInfo == null) return;
+
+        tooltipPanel.SetActive(true);
+        textInfo.text = $"<b>PRODUS CASUAL</b>\n" +
+                        $"<color=yellow>{baniCasual}$ / {timpProductie}s</color>\n" +
+                        $"Pierdere: 0 Încredere";
+    }
+
+    public void AfiseazaDetaliiPremium()
+    {
+        if (tooltipPanel == null || textInfo == null) return;
+
+        tooltipPanel.SetActive(true);
+        textInfo.text = $"<b>PRODUS PREMIUM</b>\n" +
+                        $"<color=green>{baniPremium}$ / {timpProductie}s</color>\n" +
+                        $"<color=red>Pierdere: -{pierdereIncredere} Încredere</color>";
+    }
+
+    public void AscundeDetalii()
+    {
+        if (tooltipPanel != null)
+            tooltipPanel.SetActive(false);
     }
 }
