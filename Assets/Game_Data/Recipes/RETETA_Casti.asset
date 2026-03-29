@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41263507fd2163a4686f73aadfb696d7, type: 3}
+  m_Name: RETETA_Casti
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeData
+  ingredienteNecesare:
+  - {fileID: 11400000, guid: 855d8bd21be8cf14d86b09b7411d4e65, type: 2}
+  - {fileID: 11400000, guid: b7b806c16d54cdd49b79b7eea28205a6, type: 2}
+  produsRezultat: {fileID: 11400000, guid: 88af808dcd1c7624aa84e71ddb3cb0d9, type: 2}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41263507fd2163a4686f73aadfb696d7, type: 3}
+  m_Name: RETETA_Bancnota
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeData
+  ingredienteNecesare:
+  - {fileID: 11400000, guid: 1c298775511bd654ba14fdf131f4176b, type: 2}
+  - {fileID: 11400000, guid: 75d33a49548ec9d4a8a7f22b07639fae, type: 2}
+  produsRezultat: {fileID: 11400000, guid: 8e1419f828dc426499f6975615767a3e, type: 2}

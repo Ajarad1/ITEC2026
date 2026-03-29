@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41263507fd2163a4686f73aadfb696d7, type: 3}
+  m_Name: RETETA_Mileu
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeData
+  ingredienteNecesare:
+  - {fileID: 11400000, guid: 577186a3a1de2b84aa2429625b3031a7, type: 2}
+  - {fileID: 11400000, guid: a338b6e74ae4e9d43972e722011f91b1, type: 2}
+  produsRezultat: {fileID: 11400000, guid: 0757d9f6e1ca76a4281c58d602a1fac9, type: 2}
