@@ -5,8 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Contract_Minigame/StartScene.unity
+    guid: 4051e6f1823a8984fbcd61c12260a0c1
+  - enabled: 1
+    path: Assets/Scenes/Contract_Minigame/Main.unity
+    guid: 2e09bb032b0102a4cb48644979857f42
+  - enabled: 0
+    path: Assets/Scenes/Contract_Minigame/Contract_Minigame.unity
+    guid: a0a82aaa2fa2ed74f803fc33fe8f337f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

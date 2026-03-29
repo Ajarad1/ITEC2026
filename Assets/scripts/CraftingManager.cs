@@ -33,6 +33,28 @@ public class CraftingManager : MonoBehaviour
         GolesteMasa();
     }
 
+    // --- MAGIA DE CURĂȚENIE PENTRU ECRANE BLOCATE ---
+    void OnEnable()
+    {
+        // Când se deschide ecranul, ne asigurăm că banner-ul e ascuns
+        if (bannerFeedback != null)
+        {
+            bannerFeedback.SetActive(false);
+        }
+    }
+
+    void OnDisable()
+    {
+        // Când ieși de pe ecran, oprim forțat orice timer (corutină) ca să nu se încurce în fundal
+        StopAllCoroutines();
+        
+        if (bannerFeedback != null)
+        {
+            bannerFeedback.SetActive(false);
+        }
+    }
+    // ------------------------------------------------
+
     public void AdaugaIngredient(ItemData itemNou)
     {
         if (bannerFeedback.activeSelf) return;
@@ -78,6 +100,7 @@ public class CraftingManager : MonoBehaviour
             {
                 combinatieGasita = true;
                 Debug.Log("Masa caută: [" + reteta.produsRezultat.numeItem + "]. Bunicul te-a învățat: [" + string.Join(", ", reteteDeblocate) + "]");
+                
                 // VERIFICAREA FINALĂ: BUNICUL A ZIS SAU NU?
                 if (!reteteDeblocate.Contains(reteta.produsRezultat.numeItem))
                 {
@@ -85,12 +108,13 @@ public class CraftingManager : MonoBehaviour
                     return; 
                 }
 
-                // Dacă ai rețeta:
+                // Dacă ai rețeta de la bunic:
                 slotRezultat.sprite = reteta.produsRezultat.iconita;
                 slotRezultat.color = Color.white;
                 
                 StartCoroutine(AfiseazaBanner("SUCCES! Ai creat: " + reteta.produsRezultat.numeItem));
-                // Trimite semnalul de deblocare
+                
+                // Trimite semnalul de deblocare către NPC
                 DeblocheazaLaNPC(reteta.produsRezultat.numeItem);
                 break;
             }
@@ -130,13 +154,13 @@ public class CraftingManager : MonoBehaviour
         }
         return true;
     }
+
     public void DeblocheazaLaNPC(string numeItemCraftat)
     {
         NPC_Controller[] totiNPC = FindObjectsByType<NPC_Controller>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         
         foreach (NPC_Controller npc in totiNPC)
         {
-
             if (npc.numeNPC == "Bunica" && numeItemCraftat == "Mileu anti-radiații 5G") npc.DeblocheazaItemPremium();
             else if (npc.numeNPC == "Cercetasul" && numeItemCraftat == "Busola \"Păcii Interioare\"") npc.DeblocheazaItemPremium();
             else if (npc.numeNPC == "Mecanicul" && numeItemCraftat == "Semnalizator pentru BMW") npc.DeblocheazaItemPremium();

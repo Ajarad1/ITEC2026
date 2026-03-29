@@ -28,44 +28,64 @@ public class BuniculManager : MonoBehaviour
     [Header("Setari")]
     public float timpAsteptare = 90f;
     
-    private float timerCurent;
-    private bool bunicPregatit = false;
-    private bool ecranEraDeschis = false;
-
+    // VARIABILE STATICE - Acestea NU se resetează la schimbarea scenei
+    private static float momentFinalizareTimer = -1f; 
     private static List<DateRetetaBunic> reteteDisponibile = null;
+    private static bool bunicPregatitStatic = false;
+
+    private bool ecranEraDeschis = false;
 
     void Start()
     {
+        // 1. Inițializăm lista de rețete dacă e prima dată când rulăm jocul
         if (reteteDisponibile == null) IncarcaRetetele();
         
-        timerCurent = timpAsteptare;
+        // 2. Dacă e prima pornire a jocului, setăm primul timer
+        if (momentFinalizareTimer == -1f)
+        {
+            SeteazaTimerNou();
+        }
+
         if (imagineButonBunic != null) imagineButonBunic.color = Color.white;
     }
 
     void Update()
     {
-        if (!bunicPregatit)
+        // Calculăm timpul rămas față de ceasul global al Unity (Time.time)
+        float timpRamas = momentFinalizareTimer - Time.time;
+
+        // Verificăm dacă bunicul a terminat de gândit
+        if (!bunicPregatitStatic && timpRamas <= 0)
         {
-            timerCurent -= Time.deltaTime;
-            if (timerCurent <= 0) bunicPregatit = true; 
+            bunicPregatitStatic = true;
         }
 
-        if (bunicPregatit && imagineButonBunic != null)
+        // Vizual: Pulsare buton când e gata
+        if (bunicPregatitStatic && imagineButonBunic != null)
         {
             float puls = Mathf.PingPong(Time.time * 3f, 1f);
             imagineButonBunic.color = Color.Lerp(Color.white, Color.green, puls); 
         }
 
+        // Logică deschidere ecran
         bool ecranDeschisAcum = ecranBunic != null && ecranBunic.activeInHierarchy;
         
-        if (ecranDeschisAcum && !ecranEraDeschis)
+        if (ecranDeschisAcum)
         {
-            CandSeDeschideEcranul();
-        }
+            if (!ecranEraDeschis) CandSeDeschideEcranul();
 
-        if (ecranDeschisAcum && !bunicPregatit && textTimer != null)
-        {
-            textTimer.text = "Timp de gândire: " + Mathf.Ceil(timerCurent).ToString() + "s";
+            // Gestionare afișare TEXT TIMER
+            if (textTimer != null)
+            {
+                if (bunicPregatitStatic)
+                {
+                    textTimer.text = ""; // Nu afișăm nimic dacă e gata (sau "Gata!")
+                }
+                else
+                {
+                    textTimer.text = "Timp de gândire: " + Mathf.CeilToInt(timpRamas).ToString() + "s";
+                }
+            }
         }
 
         ecranEraDeschis = ecranDeschisAcum; 
@@ -73,10 +93,9 @@ public class BuniculManager : MonoBehaviour
 
     void CandSeDeschideEcranul()
     {
-        if (bunicPregatit)
+        if (bunicPregatitStatic)
         {
             if (imagineButonBunic != null) imagineButonBunic.color = Color.white;
-            if (textTimer != null) textTimer.text = "Gata!";
             DaORețetă();
         }
         else
@@ -105,7 +124,6 @@ public class BuniculManager : MonoBehaviour
         DateRetetaBunic retetaAleasa = reteteDisponibile[indexRandom];
         reteteDisponibile.RemoveAt(indexRandom);
 
-        // AICI E MAGIA: Îi spunem Crafting-ului să deblocheze obiectul folosind numele EXACT!
         CraftingManager.InvataRetetaDeLaBunic(retetaAleasa.numeExactProdusCrafting);
 
         if (efectMasinaDeScris != null)
@@ -113,25 +131,26 @@ public class BuniculManager : MonoBehaviour
             efectMasinaDeScris.StartDialogue("Aha! Mi-am amintit una bună:\n" + retetaAleasa.mesajPoveste);
         }
 
-        bunicPregatit = false;
-        timerCurent = timpAsteptare;
+        // După ce dă rețeta, resetăm bunicul și pornim un timer nou
+        bunicPregatitStatic = false;
+        SeteazaTimerNou();
+    }
+
+    void SeteazaTimerNou()
+    {
+        momentFinalizareTimer = Time.time + timpAsteptare;
     }
 
     void IncarcaRetetele()
     {
         reteteDisponibile = new List<DateRetetaBunic>()
         {
-            // TIER BRONZ
             new DateRetetaBunic("Ață + Staniol -> Mileu anti-radiații 5G.", "Mileu anti-radiații 5G"),
             new DateRetetaBunic("Magnet + Dop de plută -> Busola \"Păcii Interioare\".", "Busola \"Păcii Interioare\""),
             new DateRetetaBunic("Bec ars + Bandă adezivă -> Semnalizator pentru BMW.", "Semnalizator pentru BMW"),
-            
-            // TIER ARGINT
             new DateRetetaBunic("Ochelari 3D + Marker negru -> Ochelari de soare.", "Ochelari de soare"),
             new DateRetetaBunic("Hartie + Marker verde -> Bancnota \"de colecție\".", "Bancnota \"de colectie\""),
             new DateRetetaBunic("2x Hârtie -> Ciornă norocoasă.", "Ciornă norocoasă"),
-            
-            // TIER AUR
             new DateRetetaBunic("Dopuri de urechi + Sârmă -> Căști anti-manele.", "Căști anti-manele"),
             new DateRetetaBunic("Vată + Apă -> Norișor personal.", "Norișor personal"),
             new DateRetetaBunic("Măr + Balon cu heliu -> Măr anti-gravitațional.", "Măr anti-gravitațional")
