@@ -264,6 +264,11 @@ public class Telefon : MonoBehaviour
             textNotificariBula.text = "Mesaje (" + crizeActive.Count + ")";
         }
     }
+    public bool AreCrizeActive()
+    {
+        // Dacă lista are elemente, înseamnă că sunt mesaje noi
+        return crizeActive.Count > 0;
+    }
 
     public void DeschideInbox() { if (ecranInbox != null) ecranInbox.SetActive(true); if (ecranMesaj != null) ecranMesaj.SetActive(false); }
     public void InchideTotTelefonul() { if (ecranInbox != null) ecranInbox.SetActive(false); if (ecranMesaj != null) ecranMesaj.SetActive(false); }

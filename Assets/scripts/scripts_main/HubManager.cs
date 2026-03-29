@@ -1,6 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI; // NOU: Ne trebuie asta pentru a schimba pozele (Image)
+using UnityEngine.UI; 
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HubManager : MonoBehaviour
 {
@@ -27,16 +28,21 @@ public class HubManager : MonoBehaviour
     public GameObject ecranBunic;
     public GameObject ecranCrafting;
     public GameObject ecranIntalnire; 
+    public GameObject ecranGameOver; // <-- NOU: Referința pentru ecranul de final
     
     [Header("Sistem Întâlnire")]
     public NPC_Controller npcCurentLaUsa;
-    public Image imagineFundalIntalnire; // NOU: Locul unde vom pune poza trimisă de NPC
+    public Image imagineFundalIntalnire; 
 
     void Start()
     {
         Time.timeScale = 1f; 
         timpRamas = durataZi;
         ActualizeazaInterfata();
+        
+        // Asigură-te că ecranul de Game Over e ascuns la începutul jocului
+        if(ecranGameOver != null) ecranGameOver.SetActive(false); 
+        
         DeschideAcasa();
     }
 
@@ -59,7 +65,7 @@ public class HubManager : MonoBehaviour
     public void ActualizeazaInterfata()
     {
         textBani.text = "Bani: " + bani + "$";
-        textIncredere.text = "Încredere: " + incredere + "/100";
+        textIncredere.text = "Încredere: " + incredere;
         textDatorie.text = "Datorie azi: " + datorieZilnica + "$";
     }
 
@@ -69,7 +75,7 @@ public class HubManager : MonoBehaviour
         {
             bani -= datorieZilnica; 
             ziuaCurenta++;
-            datorieZilnica += 25; 
+            datorieZilnica = Mathf.CeilToInt(datorieZilnica * 2); 
             timpRamas = durataZi; 
             
             incredere += 10; 
@@ -82,6 +88,13 @@ public class HubManager : MonoBehaviour
             textTimp.text = "GAME OVER!";
             textTimp.color = Color.red; 
             Time.timeScale = 0f; 
+            
+            // <-- NOU: Când pierzi, ascunde tot și arată ecranul de Game Over
+            AscundeToateEcranele();
+            if (ecranGameOver != null)
+            {
+                ecranGameOver.SetActive(true);
+            }
         }
     }
 
@@ -91,7 +104,7 @@ public class HubManager : MonoBehaviour
         if (imagineFundalIntalnire != null)
         {
             imagineFundalIntalnire.sprite = fundal;
-            imagineFundalIntalnire.color = Color.white; // Ne asigurăm că imaginea se vede perfect
+            imagineFundalIntalnire.color = Color.white; 
         }
     }
 
@@ -119,5 +132,17 @@ public class HubManager : MonoBehaviour
         ecranBunic.SetActive(false); 
         ecranCrafting.SetActive(false); 
         if (ecranIntalnire != null) ecranIntalnire.SetActive(false); 
+        // Și îl ascundem și pe el când navigăm (opțional, dar bun ca măsură de siguranță)
+        if (ecranGameOver != null) ecranGameOver.SetActive(false);
+    }
+
+    // --- FUNCȚIE PENTRU BUTONUL DE RESTART ---
+    public void RestartJoc()
+    {
+        // 1. Repornim scurgerea timpului (pentru că la Game Over a fost oprit la 0)
+        Time.timeScale = 1f; 
+        
+        // 2. Reîncărcăm nivelul curent de la zero
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -19,6 +19,7 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public GameObject meniuRacolare;
     public GameObject meniuProductie;
     public TextMeshProUGUI textTrustNecesat;
+    public TextMeshProUGUI textIncredereIndividualaUI; // <-- NOU: Textul pentru încrederea personală
 
     [Header("Setări Economie")]
     public int baniCasual = 5;
@@ -48,8 +49,8 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public bool folosesteItemPremium = false;
 
     [Header("UI Tooltip")]
-    public GameObject tooltipPanel; // Trage aici obiectul Tooltip_Detalii
-    public TextMeshProUGUI textInfo; // Trage aici obiectul Text_Info
+    public GameObject tooltipPanel; 
+    public TextMeshProUGUI textInfo; 
 
     void Start()
     {
@@ -76,16 +77,14 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             {
                 timer = 0f; 
                 
-                // Dacă e pe modul COMUN
                 if (modProductie == 1) 
                 { 
                     banca.AdaugaBani(baniCasual); 
                 }
-                // Dacă e pe modul PREMIUM
                 else if (modProductie == 2) 
                 { 
                     banca.AdaugaBani(baniPremium); 
-                    banca.ScadeIncredere(pierdereIncredere); // Aici îți scade Trust-ul pe hartă!
+                    banca.ScadeIncredere(pierdereIncredere); 
                 }
             }
         }
@@ -115,6 +114,9 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         { 
             if(meniuProductie != null) meniuProductie.SetActive(true); 
             if(meniuRacolare != null) meniuRacolare.SetActive(false); 
+            
+            // <-- NOU: Actualizăm textul de loialitate când dăm hover pe un NPC deja racolat
+            ActualizeazaTextIncredereIndividuala(); 
         }
     }
 
@@ -124,21 +126,41 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if(meniuProductie != null) meniuProductie.SetActive(false);
     }
 
+    // --- FUNCȚIILE DE ACTUALIZARE UI ---
+
     private void ActualizeazaTextTrust()
     {
         if (textTrustNecesat != null && banca != null)
         {
             textTrustNecesat.text = "Necesită: " + incredereNecesara + " Încredere";
             Color maro;
-            ColorUtility.TryParseHtmlString("#331704", out maro); // Maro în hex
+            ColorUtility.TryParseHtmlString("#331704", out maro); 
 
             if (banca.incredere < incredereNecesara)
                 textTrustNecesat.color = Color.red; 
             else
                 textTrustNecesat.color = maro; 
-                
         }
     }
+
+    // <-- NOU: Funcția care scrie și colorează loialitatea NPC-ului
+    private void ActualizeazaTextIncredereIndividuala()
+    {
+        if (textIncredereIndividualaUI != null)
+        {
+            textIncredereIndividualaUI.text = "Loialitate: " + incredereIndividuala + "/" + incredereIndividualaMax;
+
+            // Schimbăm culoarea în funcție de cât de supărat e NPC-ul
+            if (incredereIndividuala <= 3) 
+                textIncredereIndividualaUI.color = Color.red; // Pericol de plecare!
+            else if (incredereIndividuala <= 6) 
+                textIncredereIndividualaUI.color = Color.yellow; // Atenție
+            else 
+                textIncredereIndividualaUI.color = Color.green; // Totul e bine
+        }
+    }
+
+    // --- FUNCȚIILE LOGICE ---
 
     public void IncearcaRacolare() 
     { 
@@ -174,7 +196,7 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SuccesLaContract()
     {
         esteRacolat = true; 
-        modProductie = 1; // Începe automat cu producția comună
+        modProductie = 1; 
         if (pozaPeHarta != null) pozaPeHarta.color = Color.white; 
         banca.AdaugaIncredere(bonusIncredereLaRacolare);
         Debug.Log("Ai racolat-o pe " + numeNPC + "!");
@@ -195,6 +217,9 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             incredereIndividuala = incredereIndividualaMax;
 
         Debug.Log(numeNPC + " are acum " + incredereIndividuala + " încredere în tine.");
+
+        // <-- NOU: Actualizăm textul instant dacă scade loialitatea în timp ce ținem hover
+        ActualizeazaTextIncredereIndividuala(); 
 
         if (incredereIndividuala <= 0)
         {
@@ -218,7 +243,7 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
 
         incredereIndividuala = incredereIndividualaMax; 
-        itemPremiumDeblocat = false; // Îi luăm și itemul dacă pleacă
+        itemPremiumDeblocat = false; 
     }
 
     // --- FUNCȚIILE DE BUTON (legate de Crafting) ---
@@ -232,9 +257,9 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void EchipeazaItemComun()
     {
         folosesteItemPremium = false;
-        modProductie = 1; // 1 = Dă bani puțini, dar e sigur
+        modProductie = 1; 
         
-        if(meniuProductie != null) meniuProductie.SetActive(false); // Ascundem meniul ca să arate bine
+        if(meniuProductie != null) meniuProductie.SetActive(false); 
         
         Debug.Log(numeNPC + " s-a întors la itemul COMUN. Va produce " + baniCasual + "$");
     }
@@ -244,9 +269,9 @@ public class NPC_Controller : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (itemPremiumDeblocat == true)
         {
             folosesteItemPremium = true;
-            modProductie = 2; // 2 = Dă bani mulți, dar SCADE încrederea
+            modProductie = 2; 
             
-            if(meniuProductie != null) meniuProductie.SetActive(false); // Ascundem meniul
+            if(meniuProductie != null) meniuProductie.SetActive(false); 
 
             Debug.Log("✨ " + numeNPC + " folosește acum itemul PREMIUM! Va produce " + baniPremium + "$, dar pierzi " + pierdereIncredere + " Încredere!");
         }
