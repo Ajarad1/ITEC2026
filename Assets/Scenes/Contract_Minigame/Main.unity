@@ -1373,12 +1373,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniPremium
-      value: 15
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: tooltipPanel
       value: 
       objectReference: {fileID: 810565603}
+    - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
+      propertyPath: timpProductie
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: vitezaMinigame
       value: 900
@@ -1393,11 +1397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: pierdereIncredere
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: bonusIncredereLaRacolare
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: textIncredereIndividualaUI
@@ -2003,7 +2007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniPremium
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: esteRacolat
@@ -3362,7 +3366,7 @@ MonoBehaviour:
   - {fileID: 2136606094}
   - {fileID: 648843729}
   - {fileID: 1937192631}
-  timpPanaLaUrmatorulMesaj: 20
+  timpPanaLaUrmatorulMesaj: 15
   timpPentruRaspuns: 30
 --- !u!224 &583748226 stripped
 RectTransform:
@@ -3921,7 +3925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniPremium
-      value: 21
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: tooltipPanel
@@ -3945,11 +3949,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: pierdereIncredere
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: bonusIncredereLaRacolare
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: textIncredereIndividualaUI
@@ -4382,7 +4386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniPremium
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: esteRacolat
@@ -5076,11 +5080,11 @@ PrefabInstance:
       objectReference: {fileID: -9208821677285413173, guid: bc1d30f02bee3b44abdbc9675a5470a8, type: 3}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: incredereNecesara
-      value: 180
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: pierdereIncredere
-      value: 18
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: bonusIncredereLaRacolare
@@ -5744,7 +5748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniPremium
-      value: 50
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: esteRacolat
@@ -9346,7 +9350,7 @@ PrefabInstance:
       objectReference: {fileID: 1687990614}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniCasual
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: baniPremium
@@ -9374,7 +9378,7 @@ PrefabInstance:
       objectReference: {fileID: -6298424602537201719, guid: d2334369680d20d4ba2388aebf9dfd5c, type: 3}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: incredereNecesara
-      value: 250
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: pierdereIncredere
@@ -10693,7 +10697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: pierdereIncredere
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: bonusIncredereLaRacolare
@@ -12306,6 +12310,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
+      propertyPath: baniPremium
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: tooltipPanel
       value: 
       objectReference: {fileID: 1375431548}
@@ -12313,6 +12321,10 @@ PrefabInstance:
       propertyPath: fundalIntalnire
       value: 
       objectReference: {fileID: -1214125945402295706, guid: 243ae81c8e2d72e4e943909abaa7e88b, type: 3}
+    - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
+      propertyPath: bonusIncredereLaRacolare
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8677441751578493558, guid: 2db5b671680d39e4baec20a480e4bdb5, type: 3}
       propertyPath: textIncredereIndividualaUI
       value: 
